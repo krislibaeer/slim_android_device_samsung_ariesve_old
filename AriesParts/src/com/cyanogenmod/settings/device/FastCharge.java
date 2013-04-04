@@ -6,9 +6,9 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
-public class TouchKeyBacklightTimeout implements OnPreferenceChangeListener {
+public class FastCharge implements OnPreferenceChangeListener {
 
-    private static final String FILE = "/sys/class/misc/notification/bl_timeout";
+    private static final String FILE = "/sys/kernel/fast_charge/force_fast_charge";
 
     public static boolean isSupported() {
         return Utils.fileExists(FILE);
@@ -24,13 +24,14 @@ public class TouchKeyBacklightTimeout implements OnPreferenceChangeListener {
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Utils.writeValue(FILE, sharedPrefs.getString(DeviceSettings.KEY_BACKLIGHT_TIMEOUT, "1600"));
+        Utils.writeValue(FILE, sharedPrefs.getBoolean(DeviceSettings.KEY_FAST_CHARGE, false) ? "1" : "0");
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE, (String) newValue);
+    public boolean onPreferenceChange(Preference preference, Object newValue) {		
+	    Utils.writeValue(FILE, ((Boolean)newValue) ? "1" : "0");
         return true;
     }
 
 }
+

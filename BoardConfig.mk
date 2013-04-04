@@ -31,7 +31,6 @@ USE_CAMERA_STUB := true
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/ariesve/include
 
 TARGET_BOARD_PLATFORM := msm7x30
-TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
 
@@ -41,11 +40,13 @@ TARGET_CPU_ABI2 := armeabi
 # Enable NEON feature
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_USE_SCORPION_BIONIC_OPTIMIZATION := true
+ARCH_ARM_HAVE_32_BYTE_CACHE_LINE := true
 
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_NO_SECURE_PLAYBACK
-COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT -DSAMSUNG_CAMERA_QCOM
-
+COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT -DSAMSUNG_CAMERA_QCOM 
+COMMON_GLOBAL_CFLAGS += -DNO_UPDATE_PREVIEW
 
 TARGET_BOOTLOADER_BOARD_NAME := ariesve
 TARGET_OTA_ASSERT_DEVICE := ariesve,GT-I9001
@@ -58,7 +59,7 @@ TARGET_NO_INITLOGO := true
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
-# Wifi related defines
+# Connectivity - Wi-Fi
 WIFI_BAND := 802_11_ABG
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
@@ -70,6 +71,7 @@ BOARD_WLAN_DEVICE := bcmdhd
 WIFI_DRIVER_MODULE_PATH := "/lib/modules/dhd.ko"
 WIFI_DRIVER_MODULE_NAME := "dhd"
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/vendor/firmware/fw_bcmdhd.bin nvram_path=/vendor/firmware/nvram_net.txt"
+WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/vendor/firmware/fw_bcmdhd_apsta.bin nvram_path=/vendor/firmware/nvram_net.txt"
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/dhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA := "/vendor/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP := "/vendor/firmware/fw_bcmdhd_apsta.bin"
@@ -82,7 +84,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/ariesve/bluetooth/
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/ariesve/bluetooth/vnd_msm7x30.txt
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-TARGET_NEEDS_BLUETOOTH_INIT_DELAY := true
 
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 
@@ -91,10 +92,9 @@ BOARD_USES_LIBSECRIL_STUB := true
 
 BOARD_HAVE_SAMSUNG_AUDIO := true
 BOARD_USES_QCOM_AUDIO_RESETALL := true
-BOARD_USES_QCOM_AUDIO_VOIPMUTE := true
 
 TARGET_QCOM_AUDIO_VARIANT := caf
-TARGET_QCOM_DISPLAY_VARIANT := caf
+TARGET_QCOM_DISPLAY_VARIANT := legacy
 
 #BOARD_USES_QCOM_AUDIO_LPA := true
 
@@ -107,17 +107,11 @@ BOARD_USE_SKIA_LCDTEXT := true
 
 
 # QCOM webkit
+ENABLE_WEBGL := true 
 TARGET_FORCE_CPU_UPLOAD := true
- 
-TARGET_NO_HW_VSYNC := true
-
+TARGET_NO_HW_VSYNC := false
 TARGET_USES_C2D_COMPOSITION := true
-
 BOARD_NEEDS_MEMORYHEAPPMEM := true
-
-# QCOM webkit
-ENABLE_WEBGL := true
-TARGET_FORCE_CPU_UPLOAD := true
 DYNAMIC_SHARED_LIBV8SO := true
 
 BOARD_USES_QCOM_HARDWARE := true
@@ -127,11 +121,13 @@ BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 # Camera stuff
 TARGET_PROVIDES_CAMERA_HAL := true
+BOARD_USES_QCOM_LEGACY_CAM_PARAMS := true
 BOARD_USES_LEGACY_OVERLAY := true
 BOARD_CAMERA_USE_MM_HEAP := true
 TARGET_DISABLE_ARM_PIE := true
 
 TARGET_PROVIDES_LIBLIGHT := true
+TARGET_PROVIDES_POWERHAL := true 
 
 BOARD_VENDOR_QCOM_AMSS_VERSION := 6225
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := msm7x30
@@ -166,6 +162,10 @@ TARGET_RECOVERY_FSTAB := device/samsung/ariesve/recovery.fstab
 # Enable below line if compiling for a recovery version before 6.0.1.2
 #BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 # End recovery stuff
+
+# Define kernel config for inline building
+TARGET_KERNEL_CONFIG := ariesve_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/ariesve
 
 TARGET_PREBUILT_KERNEL := device/samsung/ariesve/prebuilt/zImage
 
