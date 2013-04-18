@@ -132,7 +132,7 @@ PRODUCT_PACKAGES += \
     audio_policy.msm7x30 \
     audio.a2dp.default \
     audio.usb.default \
-    libaudio-resampler \ 
+    libaudio-resampler \
     libaudioparameter 
 
 PRODUCT_PACKAGES += \
