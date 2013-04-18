@@ -74,6 +74,9 @@ persist.service.adb.enable=1
 # Storage configuration
 ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1
 
+#Change to 1 for swapping SD cards 
+persist.sys.vold.switchexternal=0 
+
 # Enable repeatable keys in recovery
 ro.cwm.enable_key_repeat=true
 
