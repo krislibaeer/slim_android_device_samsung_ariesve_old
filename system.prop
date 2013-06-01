@@ -12,6 +12,7 @@ ro.gsm.2nd_data_retry_config=max_retries=3, 2000, 2000, 2000
 
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
+ro.ril.disable.power.collapse=1
 ro.telephony.ril_class=SamsungRIL
 ro.telephony.ril.v3=signalstrength,datacall,icccardstatus
 
