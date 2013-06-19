@@ -178,3 +178,5 @@ PRODUCT_COPY_FILES += \
 
 # Vendor stuff
 $(call inherit-product-if-exists, vendor/samsung/ariesve/device-vendor.mk)
+
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
