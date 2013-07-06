@@ -7,9 +7,6 @@ $(call inherit-product, vendor/slim/config/common_full_phone.mk)
 # Inherit device configuration
 $(call inherit-product, device/samsung/ariesve/full_ariesve.mk)
 
-# Inherit Device Settings
-$(call inherit-product, vendor/slim/config/common_sgs_plus.mk)
-
 PRODUCT_RELEASE_NAME := ariesve
 
 # Setup device configuration
